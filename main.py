@@ -52,5 +52,33 @@ def crt(data):
     log_file = open("data.json", "w")
 
     log_file = json.dump(data, log_file)
-    return True             
+    return True     
+ 
+def get_tasks(session,skill_name):
+    tasks = []
+    for k in range(0,3000):  
+        url='https://www.curseofaros.com/highscores'
+        tasks.append(asyncio.create_task(session.get(url+skill_name+'.json?p='+str(k))))
+    return tasks
 
+
+
+
+
+
+
+
+
+
+
+@bot.command(name='cooking',aliases=['cook','food'])
+async def cooking(ctx):
+    await ctx.send("logging members xp ... ")
+    loging = makelog()
+    a = asyncio.run(loging)
+    if create = crt(a):
+        await ctx.send("logging finished \nsending log file ...")
+    else:
+        await ctx.send("logging failed")
+     
+bot.run(os.getenv("TOKEN"))
