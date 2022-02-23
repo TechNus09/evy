@@ -64,7 +64,15 @@ def get_tasks(session,skill_name):
 
 
 
+bot = commands.Bot(command_prefix='&')
 
+bot.remove_command("help")
+bot.remove_command("date")
+bot.remove_command('random')
+@bot.event
+async def on_ready():
+    print('Logging in as {0.user}'.format(bot))
+  
 
 
 
