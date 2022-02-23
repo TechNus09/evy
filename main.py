@@ -80,11 +80,12 @@ async def on_ready():
 
 
 @bot.command(name='cooking',aliases=['cook','food'])
-async def cooking(ctx):
+async def log(ctx):
     await ctx.send("logging members xp ... ")
     loging = makelog()
     a = asyncio.run(loging)
-    if create = crt(a):
+    create = crt(a)
+    if create :
         await ctx.send("logging finished \nsending log file ...")
         await ctx.channel.send('collected data!', file=discord.File("data.json"))
 
