@@ -79,11 +79,11 @@ async def on_ready():
 
 
 
-@bot.command(name='cooking',aliases=['cook','food'])
+@bot.command()
 async def log(ctx):
     await ctx.send("logging members xp ... ")
-    loging = makelog()
-    a = asyncio.run(loging)
+    
+    a = asyncio.run(makelog())
     create = crt(a)
     if create :
         await ctx.send("logging finished \nsending log file ...")
