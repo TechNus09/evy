@@ -78,6 +78,8 @@ async def cooking(ctx):
     a = asyncio.run(loging)
     if create = crt(a):
         await ctx.send("logging finished \nsending log file ...")
+        await ctx.channel.send('collected data!', file=discord.File("data.json"))
+
     else:
         await ctx.send("logging failed")
      
