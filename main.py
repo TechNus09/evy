@@ -39,9 +39,9 @@ async def makelog() :
                     member_temp = { 'mining_xp' : 0 , 'woodcutting_xp': 0}
                     player_name = fdata[i]["name"]
                     xp = fdata[i]["xp"]
-                    tag = player_name.split(" ")[0]                    
+                    tag = player_name.split()[0]                    
                     if tag.upper() == "OWO":
-                        if player in name_list:
+                        if player_name in name_list:
                             event_log[player_name][c_xp[skill_x]]=xp
                             event_log[player_name]["total"]=+xp
                         else:
