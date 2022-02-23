@@ -18,7 +18,7 @@ nest_asyncio.apply()
               
 async def makelog() :
     event_log = {}
-    #start = time.time()
+    start = time.time()
     name_list = []
     
     c_xp = ['mining_xp','woodcutting_xp']
@@ -36,6 +36,8 @@ async def makelog() :
             for response in responses:
                 fdata = await response.json()
                 for i in range(0,20):
+                    rank = (x*i)+(i+1)
+                    print(i)
                     member_temp = { 'mining_xp' : 0 , 'woodcutting_xp': 0}
                     player_name = fdata[i]["name"]
                     xp = fdata[i]["xp"]
@@ -49,7 +51,9 @@ async def makelog() :
                             event_log[player_name]=member_temp
                             event_log[player_name][c_xp[skill_x]]=xp
                             event_log[player_name]["total"]=+xp
-    return event_log
+    end = time.time()
+    total_time = math.ceil(end - start)
+    return event_log, total_time
    
  
 def crt(data):
@@ -88,10 +92,12 @@ async def log(ctx):
     await ctx.send("logging members xp ... ")
     
     a = asyncio.run(makelog())
-    create = crt(a)
+    t = a[1]
+    create = crt(a[0])
     if create :
         await ctx.send("logging finished \nsending log file ...")
         await ctx.channel.send('collected data!', file=d.File("data.json"))
+        await ctx.send(f" time taken : {t}")
 
     else:
         await ctx.send("logging failed")
