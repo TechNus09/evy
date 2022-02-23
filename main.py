@@ -91,7 +91,7 @@ async def log(ctx):
     create = crt(a)
     if create :
         await ctx.send("logging finished \nsending log file ...")
-        await ctx.channel.send('collected data!', file=discord.File("data.json"))
+        await ctx.channel.send('collected data!', file=d.File("data.json"))
 
     else:
         await ctx.send("logging failed")
