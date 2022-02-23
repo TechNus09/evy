@@ -30,10 +30,12 @@ async def makelog() :
     
     
     for skill_x in range(2):
+        x=0
         async with aiohttp.ClientSession() as session :
             to_do = get_tasks(session, c_skill[skill_x])
             responses = await asyncio.gather(*to_do)
             for response in responses:
+                x=+1
                 fdata = await response.json()
                 for i in range(0,20):
                     rank = (x*i)+(i+1)
