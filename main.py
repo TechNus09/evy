@@ -10,7 +10,11 @@ from urllib.request import Request, urlopen
 import json
 import nest_asyncio
 import time
-import aiohttp          
+import aiohttp  
+
+   
+nest_asyncio.apply()
+     
               
 async def makelog() :
     event_log = {}
