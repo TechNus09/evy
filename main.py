@@ -47,7 +47,7 @@ async def makelog() :
                 for i in range(0,20):
                     rank = (x*i)+(i+1)
                     print(i)
-                    member_temp = { 'mining_xp' : 0 , 'woodcutting_xp': 0}
+                    member_temp = { 'ign' : 'name' , 'mining_xp' : 0 , 'woodcutting_xp': 0}
                     player_name = fdata[i]["name"]
                     xp = fdata[i]["xp"]
                     tag = player_name.split()[0]                    
@@ -58,6 +58,7 @@ async def makelog() :
                         else:
                             name_list.append(player_name)
                             event_log[player_name]=member_temp
+                            event_log[player_name]["ign"] = player_name
                             event_log[player_name][c_xp[skill_x]]=xp
                             event_log[player_name]["total"] += xp
     end = time.time()
