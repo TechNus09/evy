@@ -13,7 +13,7 @@ import time
 import aiohttp  
 import pandas as pd
 import numpy as np
-import dataframe-image as dfi
+import dataframe_image as dfi
 import os
 
    
