@@ -118,10 +118,10 @@ async def log(ctx):
 async def logi(ctx):
     if os.path.exists("logs.png"):
         os.remove("logs.png")
-    ctx.send("dataframing ...")
+    await ctx.send("dataframing ...")
     df = pd.DataFrame.from_dict(event_log, orient="index")
     df_styled = df.style.background_gradient()
-    ctx.send("imagification ... ")
+    await ctx.send("imagification ... ")
     dfi.export(df_styled,"logs.png")
     await ctx.channel.send('imagification completed', file=d.File("logs.png"))
 
