@@ -11,11 +11,18 @@ import json
 import nest_asyncio
 import time
 import aiohttp  
+import pandas as pd
+import numpy as np
+import dataframe-image as dfi
+import os
 
    
 nest_asyncio.apply()
      
-              
+ 
+event_log = {}
+
+             
 async def makelog() :
     event_log = {}
     start = time.time()
@@ -92,6 +99,8 @@ async def on_ready():
 @bot.command()
 async def log(ctx):
     await ctx.send("logging members xp ... ")
+    if os.path.exists("data.json"):
+        os.remove("data.json")
     
     a = asyncio.run(makelog())
     t = a[1]
@@ -104,4 +113,19 @@ async def log(ctx):
     else:
         await ctx.send("logging failed")
      
+
+@bot.command()
+async def logi(ctx):
+    if os.path.exists("logs.png"):
+        os.remove("logs.png")
+    ctx.send("dataframing ...")
+    df = pd.DataFrame.from_dict(event_log, orient="index")
+    df_styled = df.style.background_gradient()
+    ctx.send("imagification ... ")
+    dfi.export(df_styled,"logs.png")
+    await ctx.channel.send('imagification completed', file=d.File("logs.png"))
+
+
+
+
 bot.run(os.getenv("TOKEN"))
