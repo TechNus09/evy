@@ -47,12 +47,12 @@ async def makelog() :
                     if tag.upper() == "OWO":
                         if player_name in name_list:
                             event_log[player_name][c_xp[skill_x]]=xp
-                            event_log[player_name]["total"]=+xp
+                            event_log[player_name]["total"] += xp
                         else:
                             name_list.append(player_name)
                             event_log[player_name]=member_temp
                             event_log[player_name][c_xp[skill_x]]=xp
-                            event_log[player_name]["total"]=+xp
+                            event_log[player_name]["total"] += xp
     end = time.time()
     total_time = math.ceil(end - start)
     return event_log, total_time
