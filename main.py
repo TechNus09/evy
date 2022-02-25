@@ -14,7 +14,6 @@ import aiohttp
 import pandas as pd
 import numpy as np
 import dataframe_image as dfi
-import os
 
    
 nest_asyncio.apply()
@@ -47,7 +46,7 @@ async def makelog() :
                 for i in range(0,20):
                     rank = (x*i)+(i+1)
                     print(i)
-                    member_temp = { 'ign' : 'name' , 'mining_xp' : 0 , 'woodcutting_xp': 0}
+                    member_temp = { 'ign' : 'name' , 'mining_xp' : 0 , 'woodcutting_xp': 0 , 'total': 0}
                     player_name = fdata[i]["name"]
                     xp = fdata[i]["xp"]
                     tag = player_name.split()[0]                    
