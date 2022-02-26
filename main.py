@@ -129,7 +129,7 @@ async def start(ctx):
     msg1 = await ctx.send("start init'ing records ...")
 
     a = asyncio.run(makelog())
-    init_record = a[1] #dict object contain records
+    init_record = a[0] #dict object contain records
     init_log = jsing(init_record) #json object contain records
 
     await msg1.delete()
