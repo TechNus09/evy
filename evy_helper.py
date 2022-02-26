@@ -62,8 +62,15 @@ def mmdd():
     else:
         dd = str(now.day)
     return mm+dd
+
 def crt(data):
     log_file = open("data.json", "w")
     log_file = json.dump(data, log_file, indent = 4)
     return True     
+
+def RankList(rl):
+    msg = ""
+    for i in range(len(rl)) :
+        msg = msg + "Rank#"+str(i+1)+'\n'+rl[i]
+
 
