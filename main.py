@@ -3,8 +3,6 @@ import math
 import asyncio
 import discord as d
 from discord.ext import commands
-from discord.utils import get
-import random
 from datetime import date as dt
 from urllib.request import Request, urlopen
 import json
@@ -14,6 +12,9 @@ import aiohttp
 import pandas as pd
 import numpy as np
 import dataframe_image as dfi
+
+from db_helper import *
+from evy_helper import *
 
    
 nest_asyncio.apply()
@@ -123,7 +124,19 @@ async def logi(ctx):
     dfi.export(df_styled,"logs.png")
     await ctx.channel.send('imagification completed', file=d.File("logs.png"))
 
+@bot.command()
+async def start(ctx):
+    msg1 = await ctx.send("start init'ing records ...")
 
+    a = asyncio.run(makelog())
+    init_record = a[1] #dict object contain records
+    init_log = jsing(init_record) #json object contain records
+
+    msg1.delete()
+    msg2 = await ctx.send("saving records to DB ...")
+
+    msg2.delete()
+    insert(ctx,'0000',init_log)#insert reords to DB as jsonb object
 
 
 bot.run(os.getenv("TOKEN"))
