@@ -45,7 +45,7 @@ async def insert(t_date,e_log):
     cur.close()
     #await ctx.send("logs saved !!")
 
-async def update(ctx,t_date,e_log):
+async def update(t_date,e_log):
     con = conn()
     cur = con.cursor()
     update_query = """
@@ -58,7 +58,7 @@ async def update(ctx,t_date,e_log):
     cur.execute(update_query,(e_log,))
     con.commit()
     cur.close()
-    await ctx.send("records saved !!")
+    #await ctx.send("records saved !!")
 
 
 def retrieve(t_date):
