@@ -41,11 +41,10 @@ async def makelog() :
             to_do = get_tasks(session, c_skill[skill_x])
             responses = await asyncio.gather(*to_do)
             for response in responses:
-                x=+1
+
                 fdata = await response.json()
                 for i in range(0,20):
-                    rank = (x*i)+(i+1)
-                    print(i)
+
                     member_temp = { 'ign' : 'name' , 'mining_xp' : 0 , 'woodcutting_xp': 0 , 'total': 0}
                     player_name = fdata[i]["name"]
                     xp = fdata[i]["xp"]
