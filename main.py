@@ -21,7 +21,8 @@ nest_asyncio.apply()
      
  
 event_log = {}
-
+global lock_state
+lock_state = True
              
 async def makelog() :
     event_log = {}
@@ -87,7 +88,11 @@ bot.remove_command("date")
 bot.remove_command('random')
 @bot.event
 async def on_ready():
+    global lock_state
     print('Logging in as {0.user}'.format(bot))
+
+    settings = retrieve('settings')
+    lock_state = settings['lock']
   
 
 
@@ -125,18 +130,98 @@ async def logi(ctx):
     await ctx.channel.send('imagification completed', file=d.File("logs.png"))
 
 @bot.command()
+async def lock(ctx):
+    global lock_state
+    if lock_state :
+        await ctx.send("Already Locked.")
+    else:
+        #change settings['lock'] to True
+        s = {'lock':True}
+        settings = jsing(s)
+        update('setting',settings)
+        await ctx.send('cmd "start" locked.')
+
+@bot.command()
+async def unlock(ctx):
+    global lock_state
+    if lock_state :
+        #change settings['lock'] to False
+        s = {'lock':False}
+        settings = jsing(s)
+        update('setting',settings)
+        await ctx.send('cmd "start" unlocked.')
+    else:
+        await ctx.send("Already Locked.")
+
+@bot.command()
 async def start(ctx):
-    msg1 = await ctx.send("start init'ing records ...")
+    global lock_state
+    init_record = {}
+    if lock_state :
+        msg1 = await ctx.send("start fetching init records ...")
 
-    a = asyncio.run(makelog())
-    init_record = a[0] #dict object contain records
-    init_log = jsing(init_record) #json object contain records
+        a = asyncio.run(makelog())
+        init_record = a[0] #dict object contain records
+        init_log = jsing(init_record) #json object contain records
 
-    await msg1.delete()
-    msg2 = await ctx.send("saving records to DB ...")
+        msg1.delete()
+        msg2 = await ctx.send("saving init records to DB ...")
 
-    await msg2.delete()
-    await insert(ctx,'0000',init_log)#insert reords to DB as jsonb object
+        msg2.delete()
+        await update(ctx,'0000',init_log)
+    else:
+        await ctx.send('you cant use this \ncmd "start" locked.')
+
+@bot.command()
+async def end(ctx):
+    global lock_state
+    final_record = {}
+    if lock_state :
+        msg1 = await ctx.send("start fetching final records ...")
+
+        a = asyncio.run(makelog())
+        final_record = a[0] #dict object contain records
+        final_log = jsing(final_record) #json object contain records
+
+        msg1.delete()
+        msg2 = await ctx.send("saving final records to DB ...")
+
+        msg2.delete()
+        await insert(ctx,'9999',final_log)
+    else:
+        await ctx.send('you cant use this \ncmd "end" locked.')
+
+@bot.command()
+async def event(ctx,skill='total'):
+    unranked_data = []
+    ranked_data = []
+    if skill.lower() in ['total','mining','woodcutting'] :
+        old_record = retrieve("0000")
+        a = asyncio.run(makelog())
+        new_record = a[0]
+        unranked_data = SortUp(old_record,new_record)
+
+        if skill.lower() == 'total':
+            ranked_data = RankUp(unranked_data[2])
+            ranking = RankList(ranked_data)
+            await ctx.send("Total Xp LeaderBoard")
+            await ctx.send(ranking)
+            
+            
+        elif skill.lower() == 'mining':
+            ranked_data = RankUp(unranked_data[0])
+            ranking = RankList(ranked_data)
+            await ctx.send("Mining LeaderBoard")
+            await ctx.send(ranking)
+            
+        elif skill.lower() == 'woodcutting':
+            ranked_data = RankUp(unranked_data[1])
+            ranking = RankList(ranked_data)
+            await ctx.send("Woodcutting LeaderBoard")
+            await ctx.send(ranking)
+    else :
+        await ctx.send("Invalid Input ! \nPlease use one from : total - mining - woodcutting")
+
 
 
 bot.run(os.getenv("TOKEN"))
