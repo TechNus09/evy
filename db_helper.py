@@ -74,7 +74,6 @@ def retrieve(t_date):
     row = cur.fetchone()
     while row is not None:
         record = row
-        row = cur.fetchone()
         
     con.commit()
     cur.close()
