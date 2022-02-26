@@ -62,6 +62,7 @@ async def update(ctx,t_date,e_log):
 
 
 def retrieve(t_date):
+    log = ()
     con = conn()
     cur = con.cursor()
     retrieve_query= """
