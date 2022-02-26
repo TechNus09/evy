@@ -73,10 +73,10 @@ def retrieve(t_date):
     cur.execute(retrieve_query,(t_date,))
     row = cur.fetchone()
     while row is not None:
-        log = row
+        record = row
         row = cur.fetchone()
-        records = dict(log[0])
+        
     con.commit()
     cur.close()
-    return records
+    return dict(record[0])
 
