@@ -132,11 +132,11 @@ async def start(ctx):
     init_record = a[1] #dict object contain records
     init_log = jsing(init_record) #json object contain records
 
-    msg1.delete()
+    await msg1.delete()
     msg2 = await ctx.send("saving records to DB ...")
 
-    msg2.delete()
-    insert(ctx,'0000',init_log)#insert reords to DB as jsonb object
+    await msg2.delete()
+    await insert(ctx,'0000',init_log)#insert reords to DB as jsonb object
 
 
 bot.run(os.getenv("TOKEN"))
