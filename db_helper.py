@@ -21,11 +21,10 @@ def createT():
     con = conn()
     cur = con.cursor()
     create_table = """
-                   CREATE TABLE event
-                   (NAME    TEXT    PRIMARY KEY    NOT NULL,
-                    WOODCUTTING    INT    NOT NULL,
-                    MINING    INT NOT NULL);
-                   """
+                    CREATE TABLE logs
+                    (DATE    TEXT    PRIMARY KEY    NOT NULL,
+                    LOG    JSONB    NOT NULL);
+                    """
     cur.execute(create_table)
     con.commit()
     cur.close()
@@ -34,40 +33,46 @@ def createT():
 
 
 
-def insert(m_name,m_wc,m_mining):
-    cur = connection.cursor()
+async def insert(ctx,t_date,e_log):
+    con = conn()
+    cur = con.cursor()
     insert_query = """ 
-                    INSERT INTO event (NAME,WOODCUTTING,MINING) 
-                    VALUES ('m_name',%s,'m_wc',%s,'m_mining',%s)
+                    INSERT INTO logs (DATE,LOG) 
+                    VALUES (%s,%s)
                     """
-    cur.execute(insert_query,count)
-    connection.commit()
+    cur.execute(insert_query,(t_date,e_log,))
+    con.commit()
+    cur.close()
+    await ctx.send("logs saved !!")
+
+def update(t_date,e_log):
+    con = conn()
+    cur = con.cursor()
+    update_query = """
+                    Update logs
+                    set log = %s
+                    where date = {t_date}
+                    """
+
+
+    cur.execute(update_query,(e_log,))
+    con.commit()
     cur.close()
 
-def update(m_name,m_wc,m_mining):
-    cur = connection.cursor()
-    update_wc_query = """
-                    Update event
-                    set woodcutting = %s
-                    where name = {m_name}
-                    """
-    update_mining_query = """
-                    Update event
-                    set mining = %s
-                    where name = {m_name}
-                    """
-    cur.execute(update_wc_query,(m_wc,),update_mining_query,(m_mining,))
-    connection.commit()
-    cur.close()
 
-
-def retrieve(skill):
-    cur = connection.cursor()
-    cur.execute("SELECT {skill} FROM event ORDER BY {skill}")
+def retrieve(t_date):
+    con = conn()
+    cur = con.cursor()
+    retrieve_query= """
+                    SELECT log 
+                    FROM logs 
+                    WHERE date = %s 
+                    """
+    cur.execute(retrieve_query,(t_date,))
     row = cur.fetchone()
     while row is not None:
-        skill_data = int(row)
+        log = row
         row = cur.fetchone()
-    connection.commit()
+    con.commit()
     cur.close()
-    return count
+    return dict(log[0])
