@@ -168,7 +168,7 @@ async def start(ctx):
         msg2 = await ctx.send("saving init records to DB ...")
 
         msg2.delete()
-        await update(ctx,'0000',init_log)
+        await update('0000',init_log)
         await ctx.send("records saved !!")
     else:
         await ctx.send('you cant use this \ncmd "start" locked.')
