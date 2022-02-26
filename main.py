@@ -66,8 +66,7 @@ async def makelog() :
  
 def crt(data):
     log_file = open("data.json", "w")
-
-    log_file = json.dump(data, log_file)
+    log_file = json.dump(data, log_file, indent = 4)
     return True     
  
 def get_tasks(session,skill_name):
