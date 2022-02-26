@@ -33,7 +33,7 @@ def createT():
 
 
 
-async def insert(ctx,t_date,e_log):
+async def insert(t_date,e_log):
     con = conn()
     cur = con.cursor()
     insert_query = """ 
@@ -43,9 +43,9 @@ async def insert(ctx,t_date,e_log):
     cur.execute(insert_query,(t_date,e_log,))
     con.commit()
     cur.close()
-    await ctx.send("logs saved !!")
+    #await ctx.send("logs saved !!")
 
-def update(t_date,e_log):
+async def update(ctx,t_date,e_log):
     con = conn()
     cur = con.cursor()
     update_query = """
@@ -58,6 +58,7 @@ def update(t_date,e_log):
     cur.execute(update_query,(e_log,))
     con.commit()
     cur.close()
+    await ctx.send("records saved !!")
 
 
 def retrieve(t_date):
@@ -73,6 +74,8 @@ def retrieve(t_date):
     while row is not None:
         log = row
         row = cur.fetchone()
+    records = dict(log[0])
     con.commit()
     cur.close()
-    return dict(log[0])
+    return records
+
