@@ -169,6 +169,7 @@ async def start(ctx):
 
         msg2.delete()
         await update(ctx,'0000',init_log)
+        await ctx.send("records saved !!")
     else:
         await ctx.send('you cant use this \ncmd "start" locked.')
 
