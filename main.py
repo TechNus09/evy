@@ -55,7 +55,6 @@ async def makelog() :
                 for i in range(0,20):
                     member_temp = { 'ign' : 'name' , 'mining_xp' : 0 , 'woodcutting_xp': 0 , 'total': 0}
                     player_name = fdata[i]["name"]
-                    print(player_name)
                     xp = fdata[i]["xp"]
                     tag = player_name.split()[0]                    
                     if tag.upper() == "OWO":
