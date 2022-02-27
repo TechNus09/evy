@@ -72,5 +72,6 @@ def RankList(rl):
     msg = ""
     for i in range(len(rl)) :
         msg = msg + "Rank#"+str(i+1)+'\n'+rl[i]
+    return msg
 
 
