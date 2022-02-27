@@ -189,12 +189,14 @@ async def end(ctx):
 @bot.command()
 async def event(ctx,skill='total'):
     if skill.lower() in ['total','mining','woodcutting'] :
+        msg1 = await ctx.send("Fetching newest records")
         old_record = retrieve("0000")
         a = asyncio.run(makelog())
         new_record = a[0]
         unranked_data = SortUp(old_record,new_record)
 
         if skill.lower() == 'total':
+            await msg1.delete()
             ranked_data = RankUp(unranked_data[2])
             ranking = RankList(ranked_data)
             await ctx.send("Total Xp LeaderBoard")
@@ -202,12 +204,14 @@ async def event(ctx,skill='total'):
             
             
         elif skill.lower() == 'mining':
+            await msg1.delete()
             ranked_data = RankUp(unranked_data[0])
             ranking = RankList(ranked_data)
             await ctx.send("Mining LeaderBoard")
             await ctx.send(ranking)
             
         elif skill.lower() == 'woodcutting':
+            await msg1.delete()
             ranked_data = RankUp(unranked_data[1])
             ranking = RankList(ranked_data)
             await ctx.send("Woodcutting LeaderBoard")
