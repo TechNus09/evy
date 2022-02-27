@@ -164,39 +164,28 @@ async def create(ctx):
 
 @bot.command()
 async def start(ctx):
-    global lock_state
-    #if lock_state :
-        #msg1 = await ctx.send("start fetching init records ...")
 
     a = asyncio.run(makelog())
     init_record = a[0] #dict object contain records
     init_log = jsing(init_record) #json object contain records
 
-    #msg1.delete()
+
     msg2 = await ctx.send("saving init records to DB ...")
 
     msg2.delete()
-    await update(ctx,'0000',init_log)
-    #else:
-        #await ctx.send('you cant use this \ncmd "start" locked.')
+    await update('0000',init_log,ctx)
 
 @bot.command()
 async def end(ctx):
-    #global lock_state
-    #if lock_state :
-        #msg1 = await ctx.send("start fetching final records ...")
 
     a = asyncio.run(makelog())
     final_record = a[0] #dict object contain records
     final_log = jsing(final_record) #json object contain records
 
-    #msg1.delete()
     msg2 = await ctx.send("saving final records to DB ...")
 
     msg2.delete()
     await insert(ctx,'9999',final_log)
-    #else:
-    #    await ctx.send('you cant use this \ncmd "end" locked.')
 
 @bot.command()
 async def event(ctx,skill='total'):
