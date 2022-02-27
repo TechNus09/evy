@@ -51,7 +51,7 @@ async def update(t_date,e_log,ctx):
     update_query = """
                     Update logs
                     set log = %s
-                    where date = {t_date}
+                    where date = '{t_date}'
                     """
 
 
@@ -67,7 +67,7 @@ def retrieve(t_date):
     retrieve_query= """
                     SELECT log 
                     FROM logs 
-                    WHERE date = %s 
+                    WHERE date = '%s' 
                     """
     cur.execute(retrieve_query,(t_date,))
     row = cur.fetchone()
