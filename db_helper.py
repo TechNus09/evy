@@ -62,7 +62,6 @@ async def update(t_date,e_log):
 
 
 def retrieve(t_date):
-
     con = conn()
     cur = con.cursor()
     retrieve_query= """
@@ -72,9 +71,10 @@ def retrieve(t_date):
                     """
     cur.execute(retrieve_query,(t_date,))
     row = cur.fetchone()
-    record = row
-        
+    while row is not None:
+        log = row
+        row = cur.fetchone()
     con.commit()
     cur.close()
-    return dict(record[0])
+    return dict(log[0])
 
