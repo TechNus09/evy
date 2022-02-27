@@ -67,7 +67,7 @@ def retrieve(t_date):
     retrieve_query= """
                     SELECT log 
                     FROM logs 
-                    WHERE date = '%s' 
+                    WHERE date = %s 
                     """
     cur.execute(retrieve_query,(t_date,))
     row = cur.fetchone()
