@@ -163,15 +163,15 @@ async def create(ctx):
 
 @bot.command()
 async def start(ctx):
-
+    msg1 = await ctx.send("Fetching recoreds ...")
     a = asyncio.run(makelog())
     init_record = a[0] #dict object contain records
     init_log = jsing(init_record) #json object contain records
 
-
+    await msg1.delete()
     msg2 = await ctx.send("saving init records to DB ...")
 
-    msg2.delete()
+    await msg2.delete()
     await update('0000',init_log,ctx)
 
 @bot.command()
