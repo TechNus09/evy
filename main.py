@@ -31,7 +31,7 @@ def crt(data):
 
 def get_tasks(session,skill_name):
     tasks = []
-    for k in range(0,3000):  
+    for k in range(0,4000):  
         url='https://www.curseofaros.com/highscores'
         tasks.append(asyncio.create_task(session.get(url+skill_name+'.json?p='+str(k))))
     return tasks
@@ -46,8 +46,8 @@ async def makelog() :
     c_skill =['-mining', '-woodcutting']
     
     for skill_x in range(2):
-        connector = aiohttp.TCPConnector(limit=80)
-        async with aiohttp.ClientSession(connector=connector) as session :
+        #connector = aiohttp.TCPConnector(limit=80)
+        async with aiohttp.ClientSession() as session :
             to_do = get_tasks(session, c_skill[skill_x])
             responses = await asyncio.gather(*to_do)
             for response in responses:
@@ -163,7 +163,7 @@ async def create(ctx):
 
 @bot.command()
 async def start(ctx):
-    msg1 = await ctx.send("Fetching recoreds ...")
+    msg1 = await ctx.send("Fetching records ...")
     a = asyncio.run(makelog())
     init_record = a[0] #dict object contain records
     init_log = jsing(init_record) #json object contain records
