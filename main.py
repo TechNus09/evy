@@ -104,14 +104,12 @@ async def log(ctx):
     if os.path.exists("data.json"):
         os.remove("data.json")
     
-    a = asyncio.run(makelog())
-    t = a[1]
-    create = crt(a[0])
+    old_record = retrieve("0000")
+    create = crt(old_record)
+   
     if create :
         await ctx.send("logging finished \nsending log file ...")
         await ctx.channel.send('collected data!', file=d.File("data.json"))
-        await ctx.send(f" time taken : {t}")
-
     else:
         await ctx.send("logging failed")
     
