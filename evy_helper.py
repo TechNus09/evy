@@ -71,7 +71,7 @@ def crt(data):
 def RankList(rl):
     msg = ""
     for i in range(len(rl)) :
-        msg = msg + "Rank#"+str(i+1)+ ' ' + rl[i] + '\n'
+        msg = msg + "Rank#"+str(i+1)+ '::: ' + rl[i] + '\n'
     return msg
 
 
