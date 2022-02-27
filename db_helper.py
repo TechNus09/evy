@@ -54,7 +54,7 @@ async def update(t_date,e_log,ctx):
     cur.execute(update_query,(e_log,t_date,))
     con.commit()
     cur.close()
-    await ctx.send("records updated !!")
+    await ctx.send("records initialized !!")
 
 
 def retrieve(t_date):
