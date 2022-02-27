@@ -48,14 +48,10 @@ async def insert(t_date,e_log):
 async def update(t_date,e_log,ctx):
     con = conn()
     cur = con.cursor()
-    update_query = """
-                    Update logs
-                    set log = %s
-                    where date = '{t_date}'
-                    """
+    update_query = """Update logs set log = %s where date = '%s' """
 
 
-    cur.execute(update_query,(e_log,))
+    cur.execute(update_query,(e_log,t_date,))
     con.commit()
     cur.close()
     await ctx.send("records updated !!")
