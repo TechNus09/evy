@@ -37,7 +37,7 @@ def RankUp(unsortedlb):
             total_xp += value
             test = key + " <#> " + "{:,}".format(value)
             members_sorted.append(test)
-    return members_sorted
+    return members_sorted, total_xp
 
 def create_file(data):
     #store records in json file form named data.json
