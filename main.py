@@ -195,25 +195,30 @@ async def event(ctx,skill='total'):
 
         if skill.lower() == 'total':
             await msg1.delete()
-            ranked_data = RankUp(unranked_data[2])
+            ranked_data = RankUp(unranked_data[2])[0]
             ranking = RankList(ranked_data)
+            oa_xp = RankUp(unranked_data[2])[1]
             await ctx.send("Total Xp LeaderBoard")
             await ctx.send(ranking)
-            
+            await ctx.send("Overall Xp gain : " + f"{:,}".format(oa_xp))
             
         elif skill.lower() == 'mining':
             await msg1.delete()
-            ranked_data = RankUp(unranked_data[0])
+            ranked_data = RankUp(unranked_data[0])[0]
+            oa_xp = RankUp(unranked_data[0])[1]
             ranking = RankList(ranked_data)
             await ctx.send("Mining LeaderBoard")
             await ctx.send(ranking)
+            await ctx.send("Overall Xp gain : " + f"{:,}".format(oa_xp))
             
         elif skill.lower() == 'woodcutting':
             await msg1.delete()
-            ranked_data = RankUp(unranked_data[1])
+            ranked_data = RankUp(unranked_data[1])[0]
+            oa_xp = RankUp(unranked_data[1])[1]
             ranking = RankList(ranked_data)
             await ctx.send("Woodcutting LeaderBoard")
             await ctx.send(ranking)
+            await ctx.send("Overall Xp gain : " + f"{:,}".format(oa_xp))
     else :
         await ctx.send("Invalid Input ! \nPlease use one from : total - mining - woodcutting")
 
