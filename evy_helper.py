@@ -15,14 +15,17 @@ def SortUp(old_log,new_log):
     for i in range(2):
         skill = skills[i]
         for j in new_log :
-            new_xp = new_log[j][skill]
-            old_xp = old_log[j][skill]
-            xp = new_xp - old_xp
-            unranked[i][j]=xp
-            if i == 0 :
-                unranked[2][j] = xp
+            if j in old_log :
+                new_xp = new_log[j][skill]
+                old_xp = old_log[j][skill]
+                xp = new_xp - old_xp
+                unranked[i][j]=xp
+                if i == 0 :
+                    unranked[2][j] = xp
+                else:
+                    unranked[2][j] += xp
             else:
-                unranked[2][j] += xp
+                pass
     return unranked
 
 def RankUp(unsortedlb):
